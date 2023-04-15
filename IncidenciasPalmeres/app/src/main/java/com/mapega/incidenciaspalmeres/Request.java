@@ -18,7 +18,7 @@ public class Request extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.formulariosolicitud);
 
-        mEmail = findViewById(R.id.gmail);
+        mEmail = findViewById(R.id.mail);
         mDNI = findViewById(R.id.dni);
         mDescripcion = findViewById(R.id.des);
         mEnviar = findViewById(R.id.env);

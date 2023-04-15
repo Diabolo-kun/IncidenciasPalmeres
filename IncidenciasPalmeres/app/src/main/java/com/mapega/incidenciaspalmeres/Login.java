@@ -9,12 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
 
-    private EditText mEmail, mPassword;
+    private EditText mGmail, mContrasena;
     private CheckBox mRemember;
     private Button mLogin, mRequest;
 
@@ -26,22 +27,50 @@ public class Login extends AppCompatActivity {
         // Verificar conexión usando una tarea asincrónica
         new TestConnectionTask().execute();
 
-        mEmail = findViewById(R.id.email);
-        mPassword = findViewById(R.id.password);
+        mGmail = findViewById(R.id.mail);
+        mContrasena = findViewById(R.id.contrasena);
         mRemember = findViewById(R.id.remember);
         mLogin = findViewById(R.id.buttonin);
         mRequest = findViewById(R.id.buttonsol);
+
+        //Rellenar si antes pusiste algo
+        SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+        String email = preferences.getString("email", "");
+        String password = preferences.getString("password", "");
+
+        if (!email.equals("") && !password.equals("")) {
+            mGmail.setText(email);
+            mContrasena.setText(password);
+            mRemember.setChecked(true);
+        }
+
 
         // Método para abrir el menu iniciando sesion
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-                boolean remember = mRemember.isChecked();
+                String email = mGmail.getText().toString();
+                String password = mContrasena.getText().toString();
 
                 // Llamar a login() usando una tarea asincrónica
-                new LoginTask(email, password, remember).execute();
+                new LoginTask(email, password).execute();
+            }
+        });
+
+        // Recordar usuario y contraseña o no
+        mRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+                if (isChecked) {
+                    // Si se activó el "Recuérdame", guardar el correo electrónico y la contraseña
+                    preferences.edit().putString("email", mGmail.getText().toString())
+                            .putString("password", mContrasena.getText().toString())
+                            .apply();
+                } else {
+                    // Si se desactivó el "Recuérdame", borrar los datos guardados previamente
+                    preferences.edit().remove("email").remove("password").apply();
+                }
             }
         });
 
@@ -74,33 +103,25 @@ public class Login extends AppCompatActivity {
 
     // Tarea asincrónica para realizar inicio de sesión
     private class LoginTask extends AsyncTask<Void, Void, Boolean> {
-        private String mEmail, mPassword;
-        private boolean mRemember;
+        private String mGmail, mContrasena;
 
-        public LoginTask(String email, String password, boolean remember) {
-            mEmail = email;
-            mPassword = password;
-            mRemember = remember;
+        public LoginTask(String gmail, String contrasena) {
+            mGmail = gmail;
+            mContrasena = contrasena;
+
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return Conexion.login(mEmail, mPassword);
+            return Conexion.login(mGmail, mContrasena);
         }
 
         @Override
         protected void onPostExecute(Boolean result) {
             if (result) {
-                if (mRemember) {
-                    // guardar gmail y contrasena en SharedPreferences
-                    SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
-                    preferences.edit().putString("gmail", mEmail).apply();
-                    preferences.edit().putString("contrasena", mPassword).apply();
-                }
-
                 // abrir Menu y pasar el correo electrónico del usuario como extra
                 Intent intent = new Intent(Login.this, Menu.class);
-                intent.putExtra("gmail", mEmail); // mEmail es el correo electrónico del usuario
+                intent.putExtra("gmail", mGmail); // mEmail es el correo electrónico del usuario
                 startActivity(intent);
                 finish();
 
