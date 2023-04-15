@@ -26,8 +26,6 @@ public class Conexion {
         }
         return false;
     }
-
-
     public static boolean login(String email, String password) {
         try {
             // Conectarse a la base de datos
@@ -79,5 +77,22 @@ public class Conexion {
             e.printStackTrace();
             return false; // Error al insertar en la base de datos
         }
+    }
+    public static int getUserPermission(String gmail) {
+        int permisos = 0;
+        try (Connection conn = getConnection()) {
+            String query = "SELECT tipo_permiso FROM usuarios WHERE gmail=?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, gmail);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        permisos = rs.getInt("tipo_permiso");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return permisos;
     }
 }
