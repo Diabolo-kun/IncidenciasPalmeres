@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Formulario de Solicitud"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/gmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gmail"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:id="@+id/dni"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DNI"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción" />
+
+        <EditText
+            android:id="@+id/des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese una descripción detallada de su solicitud" />
+
+        <Button
+            android:id="@+id/env"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finalizar Solicitud" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

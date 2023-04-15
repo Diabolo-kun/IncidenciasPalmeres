@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Incidencias Palmeres</string>
+    <string name="email">Correo Electronico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Entrar</string>
+    <string name="solicitar">Solicitar</string>
+    <string name="remember">Recuerdame</string>
+</resources>
