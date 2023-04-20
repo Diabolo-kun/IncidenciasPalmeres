@@ -5,6 +5,9 @@
         android:id="@+id/editar_perfil"
         android:title="Editar perfil" />
     <item
+    android:id="@+id/inicio"
+    android:title="Inicio" />
+    <item
         android:id="@+id/crear_incidencia_mantenimiento"
         android:title="Crear incidencia mantenimiento" />
     <item

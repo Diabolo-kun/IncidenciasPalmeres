@@ -2,6 +2,7 @@ package com.mapega.incidenciaspalmeres;
 
 import android.text.TextUtils;
 
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,31 +28,6 @@ public class Conexion {
             e.printStackTrace();
         }
         return false;
-    }
-    public static boolean login(String email, String password) {
-        try {
-            // Conectarse a la base de datos
-            java.sql.Connection conn = Conexion.getConnection();
-
-            // Ejecutar la consulta de login
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM usuarios WHERE gmail = ? AND contrasena = ?");
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            ResultSet rs = stmt.executeQuery();
-
-            // Verificar si el usuario existe
-            boolean result = rs.next();
-
-            // Cerrar la conexión y los recursos
-            rs.close();
-            stmt.close();
-            conn.close();
-
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
     public static boolean addRequest(String gmail, String dni, String description) {
         // Verificar que los campos requeridos no están vacíos
@@ -84,40 +60,31 @@ public class Conexion {
             return false; // Error al insertar en la base de datos
         }
     }
-    public static int getUserPermission(String gmail) {
-        int permisos = 0;
-        try (Connection conn = getConnection()) {
-            String query = "SELECT tipo_permiso FROM usuarios WHERE gmail=?";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, gmail);
-                try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        permisos = rs.getInt("tipo_permiso");
-                    }
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return permisos;
-    }
-    public static int getUserId(String gmail){
-        int id = -1; // Valor predeterminado si no se encuentra el usuario
+    public static Usuario getUser(String gmail) {
+        Usuario usuario = null; // Valor predeterminado si no se encuentra el usuario
 
         Connection conn = null;
         try {
             conn = getConnection();
             // Crea una sentencia SQL para buscar el usuario por su email
-            String sql = "SELECT id FROM usuarios WHERE gmail = ?";
+            String sql = "SELECT * FROM usuarios WHERE gmail = ?";
             PreparedStatement sentencia = conn.prepareStatement(sql);
             sentencia.setString(1, gmail);
 
             // Ejecuta la sentencia y obtiene el resultado
             ResultSet resultado = sentencia.executeQuery();
             if (resultado.next()) {
-                // Si se encuentra el usuario, obtiene su ID
-                id = resultado.getInt("id");
+                // Si se encuentra el usuario, crea una instancia de Usuario con sus datos
+                usuario = new Usuario();
+                usuario.setId(resultado.getInt("id"));
+                usuario.setNombre(resultado.getString("nombre"));
+                usuario.setGmail(resultado.getString("gmail"));
+                usuario.setDni(resultado.getString("dni"));
+                usuario.setNumero_telefono(resultado.getInt("numero_telefono"));
+                usuario.setContrasena(resultado.getString("contrasena"));
+                usuario.setPuesto(resultado.getString("puesto"));
+                usuario.setDescripcion(resultado.getString("descripcion"));
+                usuario.setTipo_permiso(resultado.getInt("tipo_permiso"));
             }
         } catch (SQLException e) {
             // Maneja la excepción SQL
@@ -132,40 +99,45 @@ public class Conexion {
             }
         }
 
-        return id;
+        return usuario;
     }
-    public static int getUserGmail(int id){
-        String gmail = null; // Valor predeterminado si no se encuentra el usuario
 
+    public static List<Aviso> getAvisosList(){
+        List<Aviso> avisos = new ArrayList<>();
         Connection conn = null;
         try {
             conn = getConnection();
-            // Crea una sentencia SQL para buscar el usuario por su id
-            String sql = "SELECT gmail FROM usuarios WHERE id = ?";
-            PreparedStatement sentencia = conn.prepareStatement(sql);
-            sentencia.setString(1, String.valueOf(id));
 
-            // Ejecuta la sentencia y obtiene el resultado
-            ResultSet resultado = sentencia.executeQuery();
-            if (resultado.next()) {
-                // Si se encuentra el usuario, obtiene su gmail
-                gmail = resultado.getString("gmail");
-            }
-        } catch (SQLException e) {
-            // Maneja la excepción SQL
-            System.out.println("Error al buscar el usuario por id: " + e.getMessage());
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
+            String sql = "SELECT * FROM avisos";
+
+            // Ejecutamos la consulta y obtenemos los resultados
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idUsuario = rs.getInt("id_usuario_creador");
+                    String titulo = rs.getString("titulo");
+                    String descripcion = rs.getString("descripcion");
+                    boolean importante = rs.getBoolean("importante");
+                    boolean visible = rs.getBoolean("visible_status");
+                    Date fechaCreacion = new Date(rs.getDate("fecha_creacion").getTime());
+
+                    Aviso aviso = new Aviso(id, titulo, fechaCreacion, idUsuario, descripcion, importante, visible);
+
+                    avisos.add(aviso);
                 }
-            }
-        }
 
-        return id;
+            }
+            conn.close();
+
+            return avisos;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+
     public static boolean addInciMantenimiento(String titulo, int idUsuario, String descripcion){
 
         // Verificar que los campos requeridos no están vacíos

@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
     }
 
     // Tarea asincrónica para realizar inicio de sesión
-    private class LoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class LoginTask extends AsyncTask<Void, Void, Usuario> {
         private String mGmail, mContrasena;
 
         public LoginTask(String gmail, String contrasena) {
@@ -112,19 +112,18 @@ public class Login extends AppCompatActivity {
         }
 
         @Override
-        protected Boolean doInBackground(Void... voids) {
-            return Conexion.login(mGmail, mContrasena);
+        protected Usuario doInBackground(Void... voids) {
+            return Conexion.getUser(mGmail);
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                // abrir Menu y pasar el correo electrónico del usuario como extra
+        protected void onPostExecute(Usuario usuario) {
+            if (usuario != null && usuario.getContrasena().equals(mContrasena)) {
+                // abrir Menu y pasar el objeto Usuario como extra
                 Intent intent = new Intent(Login.this, Menu.class);
-                intent.putExtra("gmail", mGmail); // mEmail es el correo electrónico del usuario
+                intent.putExtra("usuario", usuario);
                 startActivity(intent);
                 finish();
-
             } else {
                 Toast.makeText(Login.this, "Error de inicio de sesión", Toast.LENGTH_SHORT).show();
             }

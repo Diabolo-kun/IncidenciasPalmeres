@@ -13,9 +13,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+
 public class Menu extends AppCompatActivity {
-    private String mEmail; // variable de instancia para guardar el correo electrónico del usuario
-    private int permiso=0;
+    private Usuario user; // variable de instancia para guardar el usuario
 
     private NavigationView navigationView;
     private android.view.Menu mMenu;
@@ -24,38 +25,24 @@ public class Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
 
-        // obtener el correo electrónico del usuario del Intent
+        // Obtener el usuario del Intent
         Intent intent = getIntent();
-        mEmail = intent.getStringExtra("email");
+        user = (Usuario) intent.getSerializableExtra("usuario");
 
-        new AsyncTask<Void, Void, Integer>() {
-            @Override
-            protected Integer doInBackground(Void... voids) {
-                return Conexion.getUserPermission(mEmail);
-            }
+        // Imprimir los detalles del usuario en la consola
+        System.out.println("ID: " + user.getId());
+        System.out.println("Nombre: " + user.getNombre());
+        System.out.println("Email: " + user.getGmail());
+        System.out.println("DNI: " + user.getDni());
+        System.out.println("Teléfono: " + user.getNumero_telefono());
+        System.out.println("Puesto: " + user.getPuesto());
+        System.out.println("Descripción: " + user.getDescripcion());
+        System.out.println("Tipo permiso: " + user.getTipo_permiso());
 
-            @Override
-            protected void onPostExecute(Integer permission) {
-                // actualizar la interfaz de usuario dependiendo del permiso obtenido
 
-                switch (permission) {
-                    default:
-                        permiso=0;
-                        break;
-                    case 1:
-                        permiso=1;
-                        break;
-                    case 2:
-                        permiso=2;
-                        break;
-                    case 3:
-                        permiso=3;
-                        break;
-                }
-                updateNavigationMenu();
-            }
-        }.execute();
+        new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
 
+        // Menu lateral
         final DrawerLayout drawerLayout= findViewById(R.id.drawerLay);
 
         findViewById(R.id.imgMenu).setOnClickListener(new View.OnClickListener() {
@@ -74,6 +61,9 @@ public class Menu extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.editar_perfil:
                         // Abrir la actividad para editar el perfil del usuario
+                        return true;
+                    case R.id.inicio:
+                        // Abrir la actividad para ver avisos
                         return true;
                     case R.id.crear_incidencia_mantenimiento:
                         // Abrir la actividad para crear una incidencia de mantenimiento
@@ -95,6 +85,12 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.cerrar_sesion:
                         // Cerrar la sesión del usuario y volver a la pantalla de inicio de sesión
+                        // Finalizamos la tarea actual
+                        finish();
+
+                        // Iniciamos la clase Login
+                        Intent intent = new Intent(Menu.this, Login.class);
+                        startActivity(intent);
                         return true;
                     default:
                         return false;
@@ -107,7 +103,7 @@ public class Menu extends AppCompatActivity {
         navigationView = findViewById(R.id.nav);
         mMenu = navigationView.getMenu();
         //dependiendo de el permiso del usuario se podran usar unas u otras cosas
-        switch (permiso) {
+        switch (user.getTipo_permiso()) {
             default://usuario normal
                 mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(false);
                 mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(false);
@@ -133,5 +129,17 @@ public class Menu extends AppCompatActivity {
                 mMenu.findItem(R.id.ver_solicitudes).setVisible(true);
                 break;
         }
+    }private class GetAvisosTask extends AsyncTask<Void, Void, List<Aviso>> {
+
+        @Override
+        protected List<Aviso> doInBackground(Void... voids) {
+            return Conexion.getAvisosList();
+        }
+
+        @Override
+        protected void onPostExecute(List<Aviso> avisos) {
+            // Aquí puedes manejar los resultados, como actualizar una lista en la interfaz de usuario
+        }
     }
+
 }
