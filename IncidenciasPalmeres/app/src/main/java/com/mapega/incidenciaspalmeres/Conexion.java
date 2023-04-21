@@ -138,7 +138,7 @@ public class Conexion {
     }
 
 
-    public static boolean addInciMantenimiento(String titulo, int idUsuario, String descripcion){
+    public static boolean addMantenimiento(String titulo, int idUsuario, String descripcion){
 
         // Verificar que los campos requeridos no están vacíos
         if (TextUtils.isEmpty(titulo) || idUsuario == -1) {
@@ -150,7 +150,7 @@ public class Conexion {
             conexion = getConnection();
 
             // Crea una sentencia SQL para insertar la incidencia
-            String sql = "INSERT INTO incidencias (titulo, id_usuario_creador, descripcion) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO incidencias_mantenimiento (titulo, id_usuario_creador, descripcion) VALUES (?, ?, ?)";
             PreparedStatement sentencia = conexion.prepareStatement(sql);
             sentencia.setString(1, titulo);
             sentencia.setInt(2, idUsuario);
@@ -172,7 +172,7 @@ public class Conexion {
             }
         }
     }
-    public static boolean addInciAlmacen(String producto, int cantidad, int idUsuario, String descripcion){
+    public static boolean addAlmacen(String producto, int cantidad, int idUsuario, String descripcion){
 
         // Verificar que los campos requeridos no están vacíos
         if (idUsuario == -1) {

@@ -24,10 +24,10 @@
                 android:text="Producto:" />
 
             <EditText
-                android:id="@+id/cantidad_input2"
+                android:id="@+id/input_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout

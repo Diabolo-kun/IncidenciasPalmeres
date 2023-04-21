@@ -58,6 +58,7 @@ public class Menu extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Manejar la selección de item
+                Intent intent = null;
                 switch (item.getItemId()) {
                     case R.id.editar_perfil:
                         // Abrir la actividad para editar el perfil del usuario
@@ -67,12 +68,18 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.crear_incidencia_mantenimiento:
                         // Abrir la actividad para crear una incidencia de mantenimiento
+                        intent = new Intent(Menu.this, Mantenimiento.class);
+                        intent.putExtra("usuario", user);
+                        startActivity(intent);
                         return true;
                     case R.id.ver_incidencias_mantenimiento:
                         // Abrir la actividad para crear una incidencia de almacenamiento
                         return true;
                     case R.id.crear_incidencia_almacen:
                         // Abrir la actividad para ver las incidencias de mantenimiento
+                        intent = new Intent(Menu.this, Almacen.class);
+                        intent.putExtra("usuario", user);
+                        startActivity(intent);
                         return true;
                     case R.id.ver_incidencias_almacen:
                         // Abrir la actividad para ver las incidencias de almacenamiento
@@ -85,12 +92,13 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.cerrar_sesion:
                         // Cerrar la sesión del usuario y volver a la pantalla de inicio de sesión
-                        // Finalizamos la tarea actual
-                        finish();
+
 
                         // Iniciamos la clase Login
-                        Intent intent = new Intent(Menu.this, Login.class);
+                        intent = new Intent(Menu.this, Login.class);
                         startActivity(intent);
+                        // Finalizamos la tarea actual
+                        finish();
                         return true;
                     default:
                         return false;

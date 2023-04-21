@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".Menu" />
         <activity android:name=".Request" />
+        <activity android:name=".Almacen" />
+        <activity android:name=".Mantenimiento" />
     </application>
 
 </manifest>
