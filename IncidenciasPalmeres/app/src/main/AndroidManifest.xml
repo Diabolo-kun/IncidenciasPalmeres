@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IncidenciasPalmeres">
         <activity
-            android:name=".Login"
+            android:name=".LayoutController.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Menu" />
-        <activity android:name=".Request" />
+        <activity android:name=".LayoutController.Menu" />
+        <activity android:name=".Request.Request" />
         <activity android:name=".Almacen" />
         <activity android:name=".Mantenimiento" />
     </application>

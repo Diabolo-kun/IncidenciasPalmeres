@@ -1,4 +1,4 @@
-package com.mapega.incidenciaspalmeres;
+package com.mapega.incidenciaspalmeres.LayoutController;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.mapega.incidenciaspalmeres.Conexion;
+import com.mapega.incidenciaspalmeres.R;
+import com.mapega.incidenciaspalmeres.Request.Request;
+import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
 
 public class Login extends AppCompatActivity {
 

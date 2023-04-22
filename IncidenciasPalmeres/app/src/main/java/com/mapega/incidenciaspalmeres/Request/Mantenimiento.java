@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
+
 public class Mantenimiento extends AppCompatActivity {
 
     private EditText productoInput;

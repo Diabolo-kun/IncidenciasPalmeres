@@ -1,4 +1,4 @@
-package com.mapega.incidenciaspalmeres;
+package com.mapega.incidenciaspalmeres.ObjectClass;
 
 public class IncidenciaMantenimiento {
         private int id;
@@ -6,8 +6,6 @@ public class IncidenciaMantenimiento {
         private String titulo;
         private String descripcion;
         private boolean done;
-
-        // Constructor, getters y setters
 
     public IncidenciaMantenimiento(int id, int id_usuario_creador, String titulo, String descripcion, boolean done) {
         this.id = id;

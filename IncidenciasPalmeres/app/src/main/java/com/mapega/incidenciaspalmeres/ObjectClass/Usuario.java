@@ -1,4 +1,4 @@
-package com.mapega.incidenciaspalmeres;
+package com.mapega.incidenciaspalmeres.ObjectClass;
 
 import java.io.Serializable;
 

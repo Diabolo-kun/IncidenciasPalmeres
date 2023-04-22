@@ -1,4 +1,4 @@
-package com.mapega.incidenciaspalmeres;
+package com.mapega.incidenciaspalmeres.LayoutController;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +12,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.mapega.incidenciaspalmeres.Almacen;
+import com.mapega.incidenciaspalmeres.Conexion;
+import com.mapega.incidenciaspalmeres.Mantenimiento;
+import com.mapega.incidenciaspalmeres.ObjectClass.Aviso;
+import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
+import com.mapega.incidenciaspalmeres.R;
 
 import java.util.List;
 

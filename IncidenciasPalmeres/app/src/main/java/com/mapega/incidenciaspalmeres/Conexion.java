@@ -2,6 +2,11 @@ package com.mapega.incidenciaspalmeres;
 
 import android.text.TextUtils;
 
+import com.mapega.incidenciaspalmeres.ObjectClass.Aviso;
+import com.mapega.incidenciaspalmeres.ObjectClass.IncidenciaAlmacen;
+import com.mapega.incidenciaspalmeres.ObjectClass.IncidenciaMantenimiento;
+import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
+
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -101,43 +106,6 @@ public class Conexion {
 
         return usuario;
     }
-
-    public static List<Aviso> getAvisosList(){
-        List<Aviso> avisos = new ArrayList<>();
-        Connection conn = null;
-        try {
-            conn = getConnection();
-
-            String sql = "SELECT * FROM avisos";
-
-            // Ejecutamos la consulta y obtenemos los resultados
-            try (PreparedStatement ps = conn.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    int idUsuario = rs.getInt("id_usuario_creador");
-                    String titulo = rs.getString("titulo");
-                    String descripcion = rs.getString("descripcion");
-                    boolean importante = rs.getBoolean("importante");
-                    boolean visible = rs.getBoolean("visible_status");
-                    Date fechaCreacion = new Date(rs.getDate("fecha_creacion").getTime());
-
-                    Aviso aviso = new Aviso(id, titulo, fechaCreacion, idUsuario, descripcion, importante, visible);
-
-                    avisos.add(aviso);
-                }
-
-            }
-            conn.close();
-
-            return avisos;
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
     public static boolean addMantenimiento(String titulo, int idUsuario, String descripcion){
 
         // Verificar que los campos requeridos no están vacíos
@@ -210,7 +178,42 @@ public class Conexion {
             }
         }
     }
-    public static List<IncidenciaMantenimiento> selectInciMantenimento(){
+
+    public static List<Aviso> getAvisosList(){
+        List<Aviso> avisos = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = getConnection();
+
+            String sql = "SELECT * FROM avisos";
+
+            // Ejecutamos la consulta y obtenemos los resultados
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idUsuario = rs.getInt("id_usuario_creador");
+                    String titulo = rs.getString("titulo");
+                    String descripcion = rs.getString("descripcion");
+                    boolean importante = rs.getBoolean("importante");
+                    boolean visible = rs.getBoolean("visible_status");
+                    Date fechaCreacion = new Date(rs.getDate("fecha_creacion").getTime());
+
+                    Aviso aviso = new Aviso(id, titulo, fechaCreacion, idUsuario, descripcion, importante, visible);
+
+                    avisos.add(aviso);
+                }
+
+            }
+            conn.close();
+
+            return avisos;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static List<IncidenciaMantenimiento> getMantenimentoList(){
         List<IncidenciaMantenimiento> resultados = new ArrayList<>();
         // Establece una conexión con la base de datos
         Connection conn = null;
@@ -243,4 +246,37 @@ public class Conexion {
         }
 
     }
+    public static List<IncidenciaAlmacen> getAlmacenList() {
+        List<IncidenciaAlmacen> resultado = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = getConnection();
+
+            String sql = "SELECT * FROM incidencias_almacen";
+
+            // Ejecutamos la consulta y obtenemos los resultados
+            try (PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    int idUsuario = rs.getInt("id_usuario_creador");
+                    String producto = rs.getString("producto");
+                    int cantidad = rs.getInt("cantidad");
+                    String descripcion = rs.getString("descripcion");
+                    boolean pedido = rs.getBoolean("pedido");
+
+                    IncidenciaAlmacen incidencia = new IncidenciaAlmacen(id, idUsuario, producto, cantidad, descripcion, pedido);
+
+                    resultado.add(incidencia);
+                }
+            }
+            conn.close();
+
+            return resultado;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
