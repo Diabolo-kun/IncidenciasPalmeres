@@ -10,22 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mapega.incidenciaspalmeres.Almacen;
 import com.mapega.incidenciaspalmeres.Conexion;
 import com.mapega.incidenciaspalmeres.Mantenimiento;
 import com.mapega.incidenciaspalmeres.ObjectClass.Aviso;
+import com.mapega.incidenciaspalmeres.ObjectClass.AvisoListAdapter;
 import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
 import com.mapega.incidenciaspalmeres.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Menu extends AppCompatActivity {
     private Usuario user; // variable de instancia para guardar el usuario
-
     private NavigationView navigationView;
     private android.view.Menu mMenu;
+
+    List<Aviso> avisosList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +50,7 @@ public class Menu extends AppCompatActivity {
         System.out.println("Descripción: " + user.getDescripcion());
         System.out.println("Tipo permiso: " + user.getTipo_permiso());
 
-
-        new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
-
+        avisosList();
         // Menu lateral
         final DrawerLayout drawerLayout= findViewById(R.id.drawerLay);
 
@@ -71,6 +74,7 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.inicio:
                         // Abrir la actividad para ver avisos
+                        avisosList();
                         return true;
                     case R.id.crear_incidencia_mantenimiento:
                         // Abrir la actividad para crear una incidencia de mantenimiento
@@ -113,6 +117,9 @@ public class Menu extends AppCompatActivity {
         });
 
     }
+    public void avisosList(){
+        new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
+    }
     private void updateNavigationMenu() {
         navigationView = findViewById(R.id.nav);
         mMenu = navigationView.getMenu();
@@ -152,7 +159,12 @@ public class Menu extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Aviso> avisos) {
-            // Aquí puedes manejar los resultados, como actualizar una lista en la interfaz de usuario
+            AvisoListAdapter avsListAdp=new AvisoListAdapter(avisos,Menu.this);
+            RecyclerView recyclerView= findViewById(R.id.RView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(avsListAdp);
+
         }
     }
 

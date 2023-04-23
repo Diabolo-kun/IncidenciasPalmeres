@@ -6,16 +6,16 @@
         android:title="Editar perfil" />
     <item
     android:id="@+id/inicio"
-    android:title="Inicio" />
+    android:title="Avsos" />
     <item
         android:id="@+id/crear_incidencia_mantenimiento"
         android:title="Crear incidencia mantenimiento" />
     <item
-        android:id="@+id/ver_incidencias_mantenimiento"
-        android:title="Ver incidencias mantenimiento" />
-    <item
         android:id="@+id/crear_incidencia_almacen"
         android:title="Crear incidencia almacen" />
+    <item
+        android:id="@+id/ver_incidencias_mantenimiento"
+        android:title="Ver incidencias mantenimiento" />
     <item
         android:id="@+id/ver_incidencias_almacen"
         android:title="Ver incidencias almacen" />
