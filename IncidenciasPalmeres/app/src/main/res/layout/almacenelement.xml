@@ -14,42 +14,47 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="6dp">
+
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                app:srcCompat="@drawable/ic_aviso"
-                android:layout_alignParentLeft="true"/>
+                app:srcCompat="@drawable/ic_almacen" />
+
             <LinearLayout
                 android:id="@+id/linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@id/icon"
-                android:orientation="vertical"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@id/icon">
+                android:layout_toRightOf="@id/icon"
+                android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/titulo"
+                    android:id="@+id/producto"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="Aviso"
+                    android:text="producto"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearextra"
                 android:layout_width="wrap_content"
@@ -60,22 +65,24 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/fecha"
+                    android:id="@+id/cantidad"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="10-10-2300"
+                    android:text="40"
+                    android:textAlignment="center"
                     android:textColor="@color/teal_700"
                     android:textSize="15sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
                 <ImageView
                     android:id="@+id/important"
                     android:layout_width="70dp"
                     android:layout_height="45dp"
+                    android:layout_alignParentLeft="true"
                     android:paddingLeft="14dp"
                     android:paddingRight="14dp"
-                    app:srcCompat="@drawable/ic_no_important"
-                    android:layout_alignParentLeft="true"/>
+                    app:srcCompat="@drawable/ic_no_check" />
 
             </LinearLayout>
         </RelativeLayout>

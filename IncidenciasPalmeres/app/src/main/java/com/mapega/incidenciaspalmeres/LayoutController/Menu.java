@@ -75,6 +75,7 @@ public class Menu extends AppCompatActivity {
                     case R.id.inicio:
                         // Abrir la actividad para ver avisos
                         avisosList();
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.crear_incidencia_mantenimiento:
                         // Abrir la actividad para crear una incidencia de mantenimiento

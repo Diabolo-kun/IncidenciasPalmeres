@@ -185,7 +185,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM avisos ORDER BY importante DESC, fecha_creacion DESC;\n";
+            String sql = "SELECT * FROM avisos ORDER BY importante DESC, fecha_creacion DESC;";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
