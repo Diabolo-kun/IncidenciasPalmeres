@@ -17,12 +17,15 @@ import com.google.android.material.navigation.NavigationView;
 import com.mapega.incidenciaspalmeres.Almacen;
 import com.mapega.incidenciaspalmeres.Conexion;
 import com.mapega.incidenciaspalmeres.Mantenimiento;
+import com.mapega.incidenciaspalmeres.ObjectClass.AlmacenListAdapter;
 import com.mapega.incidenciaspalmeres.ObjectClass.Aviso;
 import com.mapega.incidenciaspalmeres.ObjectClass.AvisoListAdapter;
+import com.mapega.incidenciaspalmeres.ObjectClass.IncidenciaAlmacen;
+import com.mapega.incidenciaspalmeres.ObjectClass.IncidenciaMantenimiento;
+import com.mapega.incidenciaspalmeres.ObjectClass.MantenimientoListAdapter;
 import com.mapega.incidenciaspalmeres.ObjectClass.Usuario;
 import com.mapega.incidenciaspalmeres.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Menu extends AppCompatActivity {
@@ -85,6 +88,8 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.ver_incidencias_mantenimiento:
                         // Abrir la actividad para crear una incidencia de almacenamiento
+                        mantenimientoList();
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.crear_incidencia_almacen:
                         // Abrir la actividad para ver las incidencias de mantenimiento
@@ -94,7 +99,10 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.ver_incidencias_almacen:
                         // Abrir la actividad para ver las incidencias de almacenamiento
+                        almacenList();
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
+
                     case R.id.crear_aviso:
                         // Abrir la actividad para crear un aviso
                         return true;
@@ -103,8 +111,6 @@ public class Menu extends AppCompatActivity {
                         return true;
                     case R.id.cerrar_sesion:
                         // Cerrar la sesión del usuario y volver a la pantalla de inicio de sesión
-
-
                         // Iniciamos la clase Login
                         intent = new Intent(Menu.this, Login.class);
                         startActivity(intent);
@@ -117,9 +123,6 @@ public class Menu extends AppCompatActivity {
             }
         });
 
-    }
-    public void avisosList(){
-        new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
     }
     private void updateNavigationMenu() {
         navigationView = findViewById(R.id.nav);
@@ -151,8 +154,11 @@ public class Menu extends AppCompatActivity {
                 mMenu.findItem(R.id.ver_solicitudes).setVisible(true);
                 break;
         }
-    }private class GetAvisosTask extends AsyncTask<Void, Void, List<Aviso>> {
-
+    }
+    public void avisosList(){
+        new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
+    }
+    private class GetAvisosTask extends AsyncTask<Void, Void, List<Aviso>> {
         @Override
         protected List<Aviso> doInBackground(Void... voids) {
             return Conexion.getAvisosList();
@@ -160,13 +166,57 @@ public class Menu extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Aviso> avisos) {
-            AvisoListAdapter avsListAdp=new AvisoListAdapter(avisos,Menu.this);
+            AvisoListAdapter avsListAdp=new AvisoListAdapter(avisos, Menu.this, new AvisoListAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(Aviso item) {
+                    Intent intent= new Intent(Menu.this,Avisoexpose.class);
+                    intent.putExtra("aviso", item);
+                    startActivity(intent);
+                }
+            });
             RecyclerView recyclerView= findViewById(R.id.RView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(avsListAdp);
+        }
+    }
+    public void almacenList(){
+        new GetAlmacenTask().execute();// Ejecuto el metodo asincrono para generar la lista de almacen
+    }
+    private class GetAlmacenTask extends AsyncTask<Void, Void, List<IncidenciaAlmacen>> {
+        @Override
+        protected List<IncidenciaAlmacen> doInBackground(Void... voids) {
+            return Conexion.getAlmacenList();
+        }
 
+        @Override
+        protected void onPostExecute(List<IncidenciaAlmacen> almacen) {
+            AlmacenListAdapter almListAdp=new AlmacenListAdapter(almacen,Menu.this);
+            RecyclerView recyclerView= findViewById(R.id.RView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(almListAdp);
+            //el codigo llega hasta aqui bien, luego termina el asincrono y vuelve al principio y peta
         }
     }
 
+    public void mantenimientoList(){
+        new GetMantenimientoTask().execute();// Ejecuto el metodo asincrono para generar la lista de almacen
+    }
+    private class GetMantenimientoTask extends AsyncTask<Void, Void, List<IncidenciaMantenimiento>> {
+        @Override
+        protected List<IncidenciaMantenimiento> doInBackground(Void... voids) {
+            return Conexion.getMantenimentoList();
+        }
+
+        @Override
+        protected void onPostExecute(List<IncidenciaMantenimiento> mante) {
+            MantenimientoListAdapter manListAdp=new MantenimientoListAdapter(mante,Menu.this);
+            RecyclerView recyclerView= findViewById(R.id.RView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            recyclerView.setAdapter(manListAdp);
+            //el codigo llega hasta aqui bien, luego termina el asincrono y vuelve al principio y peta
+        }
+    }
 }

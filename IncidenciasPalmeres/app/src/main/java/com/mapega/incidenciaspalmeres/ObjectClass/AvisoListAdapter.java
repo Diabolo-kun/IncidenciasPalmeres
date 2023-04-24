@@ -17,10 +17,16 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
     private LayoutInflater mInflater;
     private Context context;
 
-    public AvisoListAdapter(List<Aviso> itemList, Context context){
+    final AvisoListAdapter.OnItemClickListener listener;
+    public interface OnItemClickListener{
+        void onItemClick(Aviso item);
+    }
+
+    public AvisoListAdapter(List<Aviso> itemList, Context context, AvisoListAdapter.OnItemClickListener listener){
         this.mInflater=LayoutInflater.from(context);
         this.context=context;
         this.mdata=itemList;
+        this.listener= listener;
     }
 
     @Override
@@ -64,6 +70,12 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
             }else{
                 important.setImageResource(R.drawable.ic_no_important);
             }
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
+            });
         }
     }
 

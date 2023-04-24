@@ -45,7 +45,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/producto"
+                    android:id="@+id/tituloalmacen"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
@@ -61,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="8dp">
 
@@ -76,7 +77,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/important"
+                    android:id="@+id/pedido"
                     android:layout_width="70dp"
                     android:layout_height="45dp"
                     android:layout_alignParentLeft="true"

@@ -1,8 +1,9 @@
 package com.mapega.incidenciaspalmeres.ObjectClass;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Aviso {
+public class Aviso implements Serializable {
     private int id;
     private String titulo;
     private Date fechaCreacion;

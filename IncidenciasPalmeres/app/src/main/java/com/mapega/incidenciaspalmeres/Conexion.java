@@ -252,7 +252,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM incidencias_almacen";
+            String sql = "SELECT * FROM incidencias_almacen ORDER BY pedido";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
