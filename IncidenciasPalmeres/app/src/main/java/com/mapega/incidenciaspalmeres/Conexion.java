@@ -185,7 +185,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM avisos ORDER BY importante DESC, fecha_creacion DESC;";
+            String sql = "SELECT * FROM avisos ORDER BY nivel_prioridad , fecha_creacion DESC;";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -195,11 +195,11 @@ public class Conexion {
                     int idUsuario = rs.getInt("id_usuario_creador");
                     String titulo = rs.getString("titulo");
                     String descripcion = rs.getString("descripcion");
-                    boolean importante = rs.getBoolean("importante");
+                    int nivel_prioridad = rs.getInt("nivel_prioridad");
                     boolean visible = rs.getBoolean("visible_status");
                     Date fechaCreacion = new Date(rs.getDate("fecha_creacion").getTime());
 
-                    Aviso aviso = new Aviso(id, titulo, fechaCreacion, idUsuario, descripcion, importante, visible);
+                    Aviso aviso = new Aviso(id, titulo, fechaCreacion, idUsuario, descripcion, nivel_prioridad, visible);
 
                     avisos.add(aviso);
                 }
@@ -230,9 +230,12 @@ public class Conexion {
                     int idUsuario = rs.getInt("id_usuario_creador");
                     String titulo = rs.getString("titulo");
                     String descripcion = rs.getString("descripcion");
-                    boolean resuelta = rs.getBoolean("done");
+                    boolean done = rs.getBoolean("done");
+                    Date fechaCreacion = rs.getDate("fecha_creacion");
+                    Date fechaFinalizacion = rs.getDate("fecha_finalizacion");
+                    int nivelPrioridad = rs.getInt("nivel_prioridad");
 
-                    IncidenciaMantenimiento incidencia = new IncidenciaMantenimiento(id, idUsuario, titulo, descripcion, resuelta);
+                    IncidenciaMantenimiento incidencia = new IncidenciaMantenimiento(id, idUsuario, titulo, descripcion, done, fechaCreacion, fechaFinalizacion, nivelPrioridad);
 
                     resultados.add(incidencia);
                 }
@@ -252,7 +255,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM incidencias_almacen ORDER BY pedido";
+            String sql = "SELECT * FROM incidencias_almacen ORDER BY pedido;";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -264,8 +267,11 @@ public class Conexion {
                     int cantidad = rs.getInt("cantidad");
                     String descripcion = rs.getString("descripcion");
                     boolean pedido = rs.getBoolean("pedido");
+                    Date fechaCreacion = rs.getDate("fecha_creacion");
+                    Date fechaFinalizacion = rs.getDate("fecha_finalizacion");
+                    int nivelPrioridad = rs.getInt("nivel_prioridad");
 
-                    IncidenciaAlmacen incidencia = new IncidenciaAlmacen(id, idUsuario, producto, cantidad, descripcion, pedido);
+                    IncidenciaAlmacen incidencia = new IncidenciaAlmacen(id, idUsuario, producto, cantidad, descripcion, pedido, fechaCreacion, fechaFinalizacion, nivelPrioridad);
 
                     resultado.add(incidencia);
                 }
@@ -278,5 +284,4 @@ public class Conexion {
             throw new RuntimeException(e);
         }
     }
-
 }

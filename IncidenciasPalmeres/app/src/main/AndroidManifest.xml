@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IncidenciasPalmeres">
         <activity
-            android:name=".LayoutController.Avisoexpose"
-            android:exported="false" />
-        <activity
             android:name=".LayoutController.Login"
             android:exported="true">
             <intent-filter>
@@ -27,6 +24,7 @@
         <activity android:name=".Request.Request" />
         <activity android:name=".Almacen" />
         <activity android:name=".Mantenimiento" />
+        <activity android:name=".LayoutController.Avisoexpose"/>
     </application>
 
 </manifest>

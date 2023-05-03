@@ -9,16 +9,16 @@ public class Aviso implements Serializable {
     private Date fechaCreacion;
     private int idUsuarioCreador;
     private String descripcion;
-    private boolean importante;
+    private int nivel_prioridad;
     private boolean visible;
 
-    public Aviso(int id, String titulo, Date fechaCreacion, int idUsuarioCreador, String descripcion, boolean importante, boolean visible) {
+    public Aviso(int id, String titulo, Date fechaCreacion, int idUsuarioCreador, String descripcion, int nivel_prioridad, boolean visible) {
         this.id = id;
         this.titulo = titulo;
         this.fechaCreacion = fechaCreacion;
         this.idUsuarioCreador = idUsuarioCreador;
         this.descripcion = descripcion;
-        this.importante = importante;
+        this.nivel_prioridad = nivel_prioridad;
         this.visible = visible;
     }
 
@@ -66,12 +66,10 @@ public class Aviso implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public boolean isImportante() {
-        return importante;
-    }
+    public int getNivel_prioridad() {return nivel_prioridad;}
 
-    public void setImportante(boolean importante) {
-        this.importante = importante;
+    public void setNivel_prioridad(int nivel_prioridad) {
+        this.nivel_prioridad = nivel_prioridad;
     }
 
     public boolean isVisible() {

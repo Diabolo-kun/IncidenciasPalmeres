@@ -166,19 +166,17 @@ public class Menu extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<Aviso> avisos) {
-            AvisoListAdapter avsListAdp=new AvisoListAdapter(avisos, Menu.this, new AvisoListAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(Aviso item) {
-                    Intent intent= new Intent(Menu.this,Avisoexpose.class);
-                    intent.putExtra("aviso", item);
-                    startActivity(intent);
-                }
-            });
+            AvisoListAdapter avsListAdp=new AvisoListAdapter(avisos, Menu.this);
             RecyclerView recyclerView= findViewById(R.id.RView);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(avsListAdp);
         }
+    }
+    public void describirAviso(Aviso item){
+        Intent intent= new Intent(Menu.this,Avisoexpose.class);
+        intent.putExtra("aviso", item);
+        startActivity(intent);
     }
     public void almacenList(){
         new GetAlmacenTask().execute();// Ejecuto el metodo asincrono para generar la lista de almacen
