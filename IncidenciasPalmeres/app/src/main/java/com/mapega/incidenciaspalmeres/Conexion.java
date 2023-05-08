@@ -13,7 +13,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Conexion {
@@ -178,7 +182,6 @@ public class Conexion {
             }
         }
     }
-
     public static List<Aviso> getAvisosList(){
         List<Aviso> avisos = new ArrayList<>();
         Connection conn = null;
@@ -282,6 +285,73 @@ public class Conexion {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public static void doneUpdaterManten(int objetoId, boolean estadoCheckBox) {
+        try (Connection connection = getConnection()) {
+            // Crear la consulta SQL para actualizar el estado de la incidencia
+            String sql = "UPDATE incidencias_mantenimiento SET done = ?";
+            if (estadoCheckBox) {
+                sql += ", fecha_finalizacion = ?";
+            }else {
+                sql += ", fecha_finalizacion = NULL";
+            }
+            sql += " WHERE id = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Establecer los parámetros de la consulta
+                statement.setBoolean(1, estadoCheckBox);
+                if (estadoCheckBox) {
+                    // Obtener la fecha actual con hora, minutos y segundos
+                    java.util.Date date = new java.util.Date();
+                    Timestamp timestamp = new Timestamp(date.getTime());
+
+                    statement.setTimestamp(2, timestamp);
+                    statement.setInt(3, objetoId);
+                } else {
+                    statement.setInt(2, objetoId);
+                }
+
+                // Ejecutar la consulta
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Manejar la excepción
+            e.printStackTrace();
+        }
+    }
+
+    public static void pedido(int objetoId, boolean estadoCheckBox) {
+        try (Connection connection = getConnection()) {
+            // Crear la consulta SQL para actualizar el estado de la incidencia
+            String sql = "UPDATE incidencias_almacen SET pedido = ?";
+            if (estadoCheckBox) {
+                sql += ", fecha_finalizacion = ?";
+            }else {
+                sql += ", fecha_finalizacion = NULL";
+            }
+            sql += " WHERE id = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Establecer los parámetros de la consulta
+                statement.setBoolean(1, estadoCheckBox);
+                if (estadoCheckBox) {
+                    // Obtener la fecha actual con hora, minutos y segundos
+                    java.util.Date date = new java.util.Date();
+                    Timestamp timestamp = new Timestamp(date.getTime());
+
+                    statement.setTimestamp(2, timestamp);
+                    statement.setInt(3, objetoId);
+                } else {
+                    statement.setInt(2, objetoId);
+                }
+
+                // Ejecutar la consulta
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Manejar la excepción
+            e.printStackTrace();
         }
     }
 }

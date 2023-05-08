@@ -194,7 +194,6 @@ public class Menu extends AppCompatActivity {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
             recyclerView.setAdapter(almListAdp);
-            //el codigo llega hasta aqui bien, luego termina el asincrono y vuelve al principio y peta
         }
     }
 

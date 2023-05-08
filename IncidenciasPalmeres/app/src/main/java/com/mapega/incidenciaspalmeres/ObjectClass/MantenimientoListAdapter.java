@@ -1,12 +1,16 @@
 package com.mapega.incidenciaspalmeres.ObjectClass;
         import android.content.Context;
+        import android.content.Intent;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.Button;
         import android.widget.ImageView;
         import android.widget.TextView;
         import androidx.recyclerview.widget.RecyclerView;
 
+        import com.mapega.incidenciaspalmeres.LayoutController.Avisoexpose;
+        import com.mapega.incidenciaspalmeres.LayoutController.Mantenimientoexpose;
         import com.mapega.incidenciaspalmeres.R;
 
         import java.util.List;
@@ -43,10 +47,13 @@ public class MantenimientoListAdapter extends RecyclerView.Adapter<Mantenimiento
         ImageView img;
         TextView titulo;
 
+        Button btn;
+
         ViewHolder(View itemView){
             super(itemView);
             img =itemView.findViewById(R.id.done);
             titulo=itemView.findViewById(R.id.titulomantenimiento);
+            btn=itemView.findViewById(R.id.btn_ver_detalles);
         }
 
         void bindData(final IncidenciaMantenimiento item){
@@ -56,6 +63,14 @@ public class MantenimientoListAdapter extends RecyclerView.Adapter<Mantenimiento
             }else{
                 img.setImageResource(R.drawable.ic_no_check);
             }
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, Mantenimientoexpose.class);
+                    intent.putExtra("IncidenciaMantenimiento", item);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

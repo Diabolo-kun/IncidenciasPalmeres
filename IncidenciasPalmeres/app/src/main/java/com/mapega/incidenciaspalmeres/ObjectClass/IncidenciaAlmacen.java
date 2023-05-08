@@ -1,8 +1,9 @@
 package com.mapega.incidenciaspalmeres.ObjectClass;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class IncidenciaAlmacen {
+public class IncidenciaAlmacen implements Serializable {
     private int id;
     private int id_usuario_creador;
     private String producto;
