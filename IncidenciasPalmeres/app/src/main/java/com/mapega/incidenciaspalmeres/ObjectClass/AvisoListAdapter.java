@@ -1,8 +1,8 @@
 package com.mapega.incidenciaspalmeres.ObjectClass;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mapega.incidenciaspalmeres.Conexion;
-import com.mapega.incidenciaspalmeres.LayoutController.Avisoexpose;
 import com.mapega.incidenciaspalmeres.R;
 
-import java.sql.Date;
 import java.util.List;
 
 public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.ViewHolder> {
@@ -80,11 +77,52 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, Avisoexpose.class);
+                    /*Intent intent = new Intent(context, Avisoexpose.class);
                     intent.putExtra("aviso", item);
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
+                    showAlertDialog(item);
                 }
             });
+        }
+        private void showAlertDialog(Aviso item) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+            builder.setTitle(item.getTitulo());
+
+            // Inflar el layout personalizado
+            View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_aviso, null);
+            builder.setView(dialogView);
+
+            // Obtener referencias a los TextViews del layout personalizado
+            TextView idTextView = dialogView.findViewById(R.id.id);
+            TextView fechaTextView = dialogView.findViewById(R.id.fecha);
+            TextView importanciaTextView = dialogView.findViewById(R.id.importancia);
+            TextView descripcionContenidoTextView = dialogView.findViewById(R.id.descripcion_contenido);
+
+            // Establecer los valores de los TextViews con la información del aviso
+            idTextView.setText("ID: " + item.getId());
+            fechaTextView.setText("Fecha: " + item.getFechaCreacion());
+            importanciaTextView.setText("Prioridad: " + item.getNivel_prioridad());
+            descripcionContenidoTextView.setText(item.getDescripcion());
+
+            //builder.setView(dialogView);
+
+            /*builder.setPositiveButton("Validar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Acción al pulsar el botón Validar
+                    // ...
+                }
+            });*/
+
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
 
     }

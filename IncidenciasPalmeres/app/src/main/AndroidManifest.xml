@@ -24,9 +24,6 @@
         <activity android:name=".Request.Request" />
         <activity android:name=".Almacen" />
         <activity android:name=".Mantenimiento" />
-        <activity android:name=".LayoutController.Avisoexpose"/>
-        <activity android:name=".LayoutController.Mantenimientoexpose"/>
-        <activity android:name=".LayoutController.Almacenexpose"/>
     </application>
 
 </manifest>

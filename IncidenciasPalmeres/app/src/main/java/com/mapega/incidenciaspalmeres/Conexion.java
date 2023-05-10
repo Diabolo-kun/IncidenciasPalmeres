@@ -287,7 +287,7 @@ public class Conexion {
             throw new RuntimeException(e);
         }
     }
-    public static void doneUpdaterManten(int objetoId, boolean estadoCheckBox) {
+    public static void done(int objetoId, boolean estadoCheckBox) {
         try (Connection connection = getConnection()) {
             // Crear la consulta SQL para actualizar el estado de la incidencia
             String sql = "UPDATE incidencias_mantenimiento SET done = ?";

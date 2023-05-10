@@ -173,11 +173,6 @@ public class Menu extends AppCompatActivity {
             recyclerView.setAdapter(avsListAdp);
         }
     }
-    public void describirAviso(Aviso item){
-        Intent intent= new Intent(Menu.this,Avisoexpose.class);
-        intent.putExtra("aviso", item);
-        startActivity(intent);
-    }
     public void almacenList(){
         new GetAlmacenTask().execute();// Ejecuto el metodo asincrono para generar la lista de almacen
     }
@@ -196,7 +191,6 @@ public class Menu extends AppCompatActivity {
             recyclerView.setAdapter(almListAdp);
         }
     }
-
     public void mantenimientoList(){
         new GetMantenimientoTask().execute();// Ejecuto el metodo asincrono para generar la lista de almacen
     }
