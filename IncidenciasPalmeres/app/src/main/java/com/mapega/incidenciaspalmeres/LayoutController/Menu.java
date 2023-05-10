@@ -53,6 +53,7 @@ public class Menu extends AppCompatActivity {
         System.out.println("Descripción: " + user.getDescripcion());
         System.out.println("Tipo permiso: " + user.getTipo_permiso());
 
+        updateNavigationMenu();
         avisosList();
         // Menu lateral
         final DrawerLayout drawerLayout= findViewById(R.id.drawerLay);
@@ -102,13 +103,6 @@ public class Menu extends AppCompatActivity {
                         almacenList();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
-
-                    case R.id.crear_aviso:
-                        // Abrir la actividad para crear un aviso
-                        return true;
-                    case R.id.ver_solicitudes:
-                        // Abrir la actividad para ver las solicitudes
-                        return true;
                     case R.id.cerrar_sesion:
                         // Cerrar la sesión del usuario y volver a la pantalla de inicio de sesión
                         // Iniciamos la clase Login
@@ -127,31 +121,26 @@ public class Menu extends AppCompatActivity {
     private void updateNavigationMenu() {
         navigationView = findViewById(R.id.nav);
         mMenu = navigationView.getMenu();
+        mMenu.findItem(R.id.editar_perfil).setVisible(true);
+        mMenu.findItem(R.id.inicio).setVisible(true);
+        mMenu.findItem(R.id.crear_incidencia_almacen).setVisible(true);
+        mMenu.findItem(R.id.crear_incidencia_mantenimiento).setVisible(true);
+        mMenu.findItem(R.id.cerrar_sesion).setVisible(true);
+        mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(false);
+        mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(false);
         //dependiendo de el permiso del usuario se podran usar unas u otras cosas
         switch (user.getTipo_permiso()) {
             default://usuario normal
-                mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(false);
-                mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(false);
-                mMenu.findItem(R.id.crear_aviso).setVisible(false);
-                mMenu.findItem(R.id.ver_solicitudes).setVisible(false);
                 break;
             case 1://usuario mantenimiento
                 mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(true);
-                mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(false);
-                mMenu.findItem(R.id.crear_aviso).setVisible(false);
-                mMenu.findItem(R.id.ver_solicitudes).setVisible(false);
                 break;
             case 2://usuario almacen
-                mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(false);
                 mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(true);
-                mMenu.findItem(R.id.crear_aviso).setVisible(false);
-                mMenu.findItem(R.id.ver_solicitudes).setVisible(false);
                 break;
             case 3://administrador
                 mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(true);
                 mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(true);
-                mMenu.findItem(R.id.crear_aviso).setVisible(true);
-                mMenu.findItem(R.id.ver_solicitudes).setVisible(true);
                 break;
         }
     }

@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Conexion {
-
     private static final String URL = "jdbc:mysql://incidenciaspalmeres.cxodsrdet67p.eu-west-3.rds.amazonaws.com:3306/palmeres";
     private static final String USER = "admin";
     private static final String PASSWORD = "601315473Mpg";
@@ -98,6 +97,47 @@ public class Conexion {
         } catch (SQLException e) {
             // Maneja la excepción SQL
             System.out.println("Error al buscar el usuario por email: " + e.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return usuario;
+    }
+    public static Usuario getUserId(int id) {
+        Usuario usuario = null; // Valor predeterminado si no se encuentra el usuario
+
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            // Crea una sentencia SQL para buscar el usuario por su email
+            String sql = "SELECT * FROM usuarios WHERE id = ?";
+            PreparedStatement sentencia = conn.prepareStatement(sql);
+            sentencia.setInt(1, id);
+
+            // Ejecuta la sentencia y obtiene el resultado
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                // Si se encuentra el usuario, crea una instancia de Usuario con sus datos
+                usuario = new Usuario();
+                usuario.setId(resultado.getInt("id"));
+                usuario.setNombre(resultado.getString("nombre"));
+                usuario.setGmail(resultado.getString("gmail"));
+                usuario.setDni(resultado.getString("dni"));
+                usuario.setNumero_telefono(resultado.getInt("numero_telefono"));
+                usuario.setContrasena(resultado.getString("contrasena"));
+                usuario.setPuesto(resultado.getString("puesto"));
+                usuario.setDescripcion(resultado.getString("descripcion"));
+                usuario.setTipo_permiso(resultado.getInt("tipo_permiso"));
+            }
+        } catch (SQLException e) {
+            // Maneja la excepción SQL
+            System.out.println("Error al buscar el usuario por id: " + e.getMessage());
         } finally {
             if (conn != null) {
                 try {
@@ -223,7 +263,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM incidencias_mantenimiento";
+            String sql = "SELECT * FROM incidencias_mantenimiento ORDER BY done , nivel_prioridad;";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -258,7 +298,7 @@ public class Conexion {
         try {
             conn = getConnection();
 
-            String sql = "SELECT * FROM incidencias_almacen ORDER BY pedido;";
+            String sql = "SELECT * FROM incidencias_almacen ORDER BY pedido , nivel_prioridad;";
 
             // Ejecutamos la consulta y obtenemos los resultados
             try (PreparedStatement ps = conn.prepareStatement(sql);
@@ -320,7 +360,6 @@ public class Conexion {
             e.printStackTrace();
         }
     }
-
     public static void pedido(int objetoId, boolean estadoCheckBox) {
         try (Connection connection = getConnection()) {
             // Crear la consulta SQL para actualizar el estado de la incidencia
