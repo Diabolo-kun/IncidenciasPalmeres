@@ -14,10 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Conexion {
@@ -149,6 +146,57 @@ public class Conexion {
         }
 
         return usuario;
+    }
+    public static void updateProfile(String nuevo_nombre, String nuevo_gmail, String nuevo_tel, String nuevo_pass, int id){
+        try (Connection connection = getConnection()) {
+            // Crear la consulta SQL para actualizar el estado de la incidencia
+            String sql = "UPDATE usuarios SET ";
+            String comma = "";
+            if (!TextUtils.isEmpty(nuevo_nombre)) {
+                sql += comma + "nombre = ?";
+                comma = ", ";
+            }
+            if (!TextUtils.isEmpty(nuevo_gmail)) {
+                sql += comma + "gmail = ?";
+                comma = ", ";
+            }
+            if (!TextUtils.isEmpty(nuevo_tel)) {
+                sql += comma + "numero_telefono = ?";
+                comma = ", ";
+            }
+            if (!TextUtils.isEmpty(nuevo_pass)) {
+                sql += comma + "contrasena = ?";
+                comma = ", ";
+            }
+            sql += " WHERE id = ?";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                // Establecer los parámetros de la consulta
+                int count=1;
+                if (!TextUtils.isEmpty(nuevo_nombre)) {
+                    statement.setString(count,nuevo_nombre);
+                    count++;
+                }
+                if (!TextUtils.isEmpty(nuevo_gmail)) {
+                    statement.setString(count,nuevo_gmail);
+                    count++;
+                }
+                if (!TextUtils.isEmpty(nuevo_tel)) {
+                    statement.setString(count,nuevo_tel);
+                    count++;
+                }
+                if (!TextUtils.isEmpty(nuevo_pass)) {
+                    statement.setString(count,nuevo_pass);
+                    count++;
+                }
+                statement.setString(count, String.valueOf(id));
+                // Ejecutar la consulta
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            // Manejar la excepción
+            e.printStackTrace();
+        }
     }
     public static boolean addMantenimiento(String titulo, int idUsuario, String descripcion){
 
@@ -391,6 +439,38 @@ public class Conexion {
         } catch (SQLException e) {
             // Manejar la excepción
             e.printStackTrace();
+        }
+    }
+    public static boolean addError(int idUsuario, String informe){
+        // Verificar que los campos requeridos no están vacíos
+        if (TextUtils.isEmpty(informe)) {
+            return false;
+        }
+        // Establece una conexión con la base de datos
+        Connection conn = null;
+        try {
+            conn = getConnection();
+
+            // Crea una sentencia SQL para insertar la incidencia de almacen
+            String sql = "INSERT INTO errores (id_usuario_creador, texto_error) VALUES (?, ?)";
+            PreparedStatement sentencia = conn.prepareStatement(sql);
+            sentencia.setInt(1, idUsuario);
+            sentencia.setString(2, informe);
+
+            // Ejecuta la sentencia
+            sentencia.executeUpdate();
+            return true; // Operación exitosa
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Error al insertar en la base de datos
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

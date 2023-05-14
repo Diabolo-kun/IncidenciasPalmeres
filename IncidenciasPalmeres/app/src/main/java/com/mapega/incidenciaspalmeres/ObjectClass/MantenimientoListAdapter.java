@@ -32,7 +32,7 @@ public class MantenimientoListAdapter extends RecyclerView.Adapter<Mantenimiento
     }
     @Override
     public MantenimientoListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.mantenelement,null);
+        View view = mInflater.inflate(R.layout.element_manten,null);
         return new MantenimientoListAdapter.ViewHolder(view);
     }
     @Override

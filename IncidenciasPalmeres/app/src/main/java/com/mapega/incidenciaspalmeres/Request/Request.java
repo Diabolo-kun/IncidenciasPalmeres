@@ -19,7 +19,7 @@ public class Request extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.formulariosolicitud);
+        setContentView(R.layout.formulario_solicitud);
 
         mEmail = findViewById(R.id.mail);
         mDNI = findViewById(R.id.dni);

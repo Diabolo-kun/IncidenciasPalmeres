@@ -1,10 +1,15 @@
 package com.mapega.incidenciaspalmeres.LayoutController;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +37,8 @@ public class Menu extends AppCompatActivity {
     private Usuario user; // variable de instancia para guardar el usuario
     private NavigationView navigationView;
     private android.view.Menu mMenu;
+    public  int lista= 1;
 
-    List<Aviso> avisosList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class Menu extends AppCompatActivity {
         System.out.println("Puesto: " + user.getPuesto());
         System.out.println("Descripción: " + user.getDescripcion());
         System.out.println("Tipo permiso: " + user.getTipo_permiso());
+        new GetUsuarioTask().execute(user.getId());
 
         updateNavigationMenu();
         avisosList();
@@ -62,6 +68,12 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        findViewById(R.id.imgreload).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reload();
             }
         });
 
@@ -75,10 +87,14 @@ public class Menu extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.editar_perfil:
                         // Abrir la actividad para editar el perfil del usuario
+                        intent = new Intent(Menu.this, EditProfile.class);
+                        intent.putExtra("usuario", user);
+                        startActivity(intent);
                         return true;
                     case R.id.inicio:
                         // Abrir la actividad para ver avisos
                         avisosList();
+                        lista=1;
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.crear_incidencia_mantenimiento:
@@ -90,6 +106,7 @@ public class Menu extends AppCompatActivity {
                     case R.id.ver_incidencias_mantenimiento:
                         // Abrir la actividad para crear una incidencia de almacenamiento
                         mantenimientoList();
+                        lista=2;
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.crear_incidencia_almacen:
@@ -101,8 +118,13 @@ public class Menu extends AppCompatActivity {
                     case R.id.ver_incidencias_almacen:
                         // Abrir la actividad para ver las incidencias de almacenamiento
                         almacenList();
+                        lista=3;
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
+                    case R.id.infoerror:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        showDialog();
+                        break;
                     case R.id.cerrar_sesion:
                         // Cerrar la sesión del usuario y volver a la pantalla de inicio de sesión
                         // Iniciamos la clase Login
@@ -114,9 +136,88 @@ public class Menu extends AppCompatActivity {
                     default:
                         return false;
                 }
+                return false;
             }
         });
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Obtener el usuario de forma asíncrona
+        new GetUsuarioTask().execute(user.getId());
+        System.out.println("ID: " + user.getId());
+        System.out.println("Nombre: " + user.getNombre());
+        System.out.println("Email: " + user.getGmail());
+        System.out.println("DNI: " + user.getDni());
+        System.out.println("Teléfono: " + user.getNumero_telefono());
+        System.out.println("Puesto: " + user.getPuesto());
+        System.out.println("Descripción: " + user.getDescripcion());
+        System.out.println("Tipo permiso: " + user.getTipo_permiso());
+    }
+    private class GetUsuarioTask extends AsyncTask<Integer, Void, Usuario> {
+        @Override
+        protected Usuario doInBackground(Integer... params) {
+            int userId = params[0];
+            return Conexion.getUserId(userId);
+        }
+
+        @Override
+        protected void onPostExecute(Usuario usuario) {
+            // Realizar las acciones necesarias con el usuario obtenido
+            if (usuario != null) {
+                user=usuario;
+            } else {
+                Toast.makeText(Menu.this, "Error con recarga de usuario", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void showDialog() {
+        // Inflar el diseño del diálogo desde XML
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_informe_error, null);
+
+        final EditText editTextInforme = dialogView.findViewById(R.id.informe);
+        // Crear el diálogo con el diseño inflado
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView)
+                .setPositiveButton("Enviar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Llamar al método informar() al pulsar el botón "Enviar"
+                        String informe = editTextInforme.getText().toString();
+                        new AsyncTask<Void, Void, Boolean>() {
+                            @Override
+                            protected Boolean doInBackground(Void... voids) {
+                                return Conexion.addError(user.getId(), informe);
+                            }
+                            @Override
+                            protected void onPostExecute(Boolean result) {
+                                if (!result) {
+                                    Toast.makeText(Menu.this, "Error al agregar el informe de error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }.execute();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Cerrar el diálogo
+                        dialog.dismiss();
+                    }
+                });
+        // Mostrar el diálogo
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+    public void reload(){
+        if (lista == 1) {
+            avisosList();
+        }else if (lista == 2) {
+            mantenimientoList();
+        }else if (lista == 3) {
+            almacenList();
+        }
     }
     private void updateNavigationMenu() {
         navigationView = findViewById(R.id.nav);
@@ -125,6 +226,7 @@ public class Menu extends AppCompatActivity {
         mMenu.findItem(R.id.inicio).setVisible(true);
         mMenu.findItem(R.id.crear_incidencia_almacen).setVisible(true);
         mMenu.findItem(R.id.crear_incidencia_mantenimiento).setVisible(true);
+        mMenu.findItem(R.id.infoerror).setVisible(true);
         mMenu.findItem(R.id.cerrar_sesion).setVisible(true);
         mMenu.findItem(R.id.ver_incidencias_mantenimiento).setVisible(false);
         mMenu.findItem(R.id.ver_incidencias_almacen).setVisible(false);
@@ -147,7 +249,7 @@ public class Menu extends AppCompatActivity {
     public void avisosList(){
         new GetAvisosTask().execute();// Ejecuto el metodo asincrono para generar la lista de avisos
     }
-    private class GetAvisosTask extends AsyncTask<Void, Void, List<Aviso>> {
+    public class GetAvisosTask extends AsyncTask<Void, Void, List<Aviso>> {
         @Override
         protected List<Aviso> doInBackground(Void... voids) {
             return Conexion.getAvisosList();

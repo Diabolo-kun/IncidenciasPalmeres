@@ -38,6 +38,9 @@ public class Login extends AppCompatActivity {
         mLogin = findViewById(R.id.buttonin);
         mRequest = findViewById(R.id.buttonsol);
 
+        //SOLICITUDES OCULTAS, COMENTAR LA SIGUIENTE LINIA PARA DESBLOQUEAR
+        mRequest.setVisibility(View.INVISIBLE);
+
         //Rellenar si antes pusiste algo
         SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
         String email = preferences.getString("email", "");

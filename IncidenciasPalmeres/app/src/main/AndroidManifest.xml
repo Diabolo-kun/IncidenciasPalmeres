@@ -24,6 +24,7 @@
         <activity android:name=".Request.Request" />
         <activity android:name=".Almacen" />
         <activity android:name=".Mantenimiento" />
+        <activity android:name=".LayoutController.EditProfile" />
     </application>
 
 </manifest>

@@ -37,7 +37,7 @@ public class AlmacenListAdapter extends RecyclerView.Adapter<AlmacenListAdapter.
 
     @Override
     public AlmacenListAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.almacenelement,null);
+        View view = mInflater.inflate(R.layout.element_almacen,null);
         return new AlmacenListAdapter.ViewHolder(view);
     }
 
@@ -131,7 +131,10 @@ public class AlmacenListAdapter extends RecyclerView.Adapter<AlmacenListAdapter.
         protected void onPostExecute(Void aVoid) {
             // Acciones posteriores a la ejecución de la tarea
             dialog.dismiss();
+            //Actualizar lista
+
         }
     }
+
 }
 

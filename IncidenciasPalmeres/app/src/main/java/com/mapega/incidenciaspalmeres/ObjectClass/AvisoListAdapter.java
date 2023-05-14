@@ -39,7 +39,7 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
 
     @Override
     public AvisoListAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.avisoelement,null);
+        View view = mInflater.inflate(R.layout.element_aviso,null);
         return new AvisoListAdapter.ViewHolder(view);
     }
 
@@ -104,15 +104,6 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
             importanciaTextView.setText("Prioridad: " + item.getNivel_prioridad());
             descripcionContenidoTextView.setText(item.getDescripcion());
 
-            //builder.setView(dialogView);
-
-            /*builder.setPositiveButton("Validar", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Acción al pulsar el botón Validar
-                    // ...
-                }
-            });*/
 
             builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                 @Override

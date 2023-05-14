@@ -22,7 +22,7 @@ public class Mantenimiento extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.formulariomantenimiento);
+        setContentView(R.layout.formulario_mantenimiento);
 
         // Obtener el usuario del Intent
         Intent intent = getIntent();

@@ -20,6 +20,9 @@
         android:id="@+id/ver_incidencias_almacen"
         android:title="Ver incidencias almacen" />
     <item
+        android:id="@+id/infoerror"
+        android:title="Informar de errores" />
+    <item
         android:id="@+id/cerrar_sesion"
         android:title="Cerrar sesión" />
 </menu>

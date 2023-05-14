@@ -23,7 +23,7 @@ public class Almacen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.formularioalmacen);
+        setContentView(R.layout.formulario_almacen);
 
         // Obtener el usuario del Intent
         Intent intent = getIntent();
