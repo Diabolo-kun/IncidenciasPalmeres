@@ -1,9 +1,10 @@
 package com.mapega.incidenciaspalmeres.LayoutController;
 
-    import android.content.DialogInterface;
+    import android.app.AlertDialog;
     import android.content.Intent;
     import android.os.AsyncTask;
     import android.os.Bundle;
+    import android.view.LayoutInflater;
     import android.view.View;
     import android.widget.Button;
     import android.widget.EditText;
@@ -18,7 +19,6 @@ package com.mapega.incidenciaspalmeres.LayoutController;
 
 public class EditProfile extends AppCompatActivity {
     private TextView idActualTextView, nombreActualTextView, gmailActualTextView, dniActualTextView, ntelActualTextView, passActualTextView, puestoActualTextView, permisosActualTextView;
-    private EditText nombreNuevoEditText, gmailNuevoEditText, ntelNuevoEditText, passNuevoEditText;
     private Button cancelarButton, guardarButton;
     private Usuario user; // variable de instancia para guardar el usuario
 
@@ -37,15 +37,7 @@ public class EditProfile extends AppCompatActivity {
         nombreActualTextView = findViewById(R.id.Nombre_actual);
         nombreActualTextView.setText(user.getNombre());
         gmailActualTextView = findViewById(R.id.Gmail_actual);
-        String texto = user.getGmail();
-        int posicionArroba = texto.indexOf("@");
-        if (posicionArroba != -1) {
-            String parte1 = texto.substring(0, posicionArroba); // Incluye el "@"
-            String parte2 = texto.substring(posicionArroba);
-            // Concatenar las partes con el salto de línea
-            String gmailmodificado = parte1 + "\n" + parte2;
-            gmailActualTextView.setText(gmailmodificado);
-        }
+        gmailActualTextView.setText(user.getGmail());
         dniActualTextView = findViewById(R.id.DNI_actual);
         dniActualTextView.setText(user.getDni());
         ntelActualTextView = findViewById(R.id.Ntel_actual);
@@ -56,12 +48,40 @@ public class EditProfile extends AppCompatActivity {
         puestoActualTextView.setText(user.getPuesto());
         permisosActualTextView = findViewById(R.id.permisos_actual);
         permisosActualTextView.setText(String.valueOf(user.getTipo_permiso()));
-        nombreNuevoEditText = findViewById(R.id.Nombre_nuevo);
-        gmailNuevoEditText = findViewById(R.id.Gmail_nuevo);
-        ntelNuevoEditText = findViewById(R.id.Ntel_nuevo);
-        passNuevoEditText = findViewById(R.id.pass_nuevo);
         cancelarButton = findViewById(R.id.btncancel);
         guardarButton = findViewById(R.id.btnsave);
+
+        // Configurar el clic del TextView "nombreActualTextView"
+        nombreActualTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogName();
+            }
+        });
+
+        // Configurar el clic del TextView "gmailActualTextView"
+        gmailActualTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogGmail();
+            }
+        });
+
+        // Configurar el clic del TextView "ntelActualTextView"
+        ntelActualTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogTel();
+            }
+        });
+
+        // Configurar el clic del TextView "passActualTextView"
+        passActualTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAlertDialogPass();
+            }
+        });
 
 
         // Configurar el clic del botón "Cancelar"
@@ -77,10 +97,10 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Obtener los valores ingresados en los EditText
-                String nuevoNombre = nombreNuevoEditText.getText().toString();
-                String nuevoGmail = gmailNuevoEditText.getText().toString();
-                String nuevoNTel = ntelNuevoEditText.getText().toString();
-                String nuevoPass = passNuevoEditText.getText().toString();
+                String nuevoNombre = nombreActualTextView.getText().toString();
+                String nuevoGmail = gmailActualTextView.getText().toString();
+                String nuevoNTel = ntelActualTextView.getText().toString();
+                String nuevoPass = passActualTextView.getText().toString();
 
                 // Realizar acciones con los valores obtenidos
                 new UpdateProfileTask(nuevoNombre, nuevoGmail, nuevoNTel, nuevoPass, user.getId()).execute();
@@ -88,6 +108,165 @@ public class EditProfile extends AppCompatActivity {
             }
         });
     }
+
+    private void showAlertDialogPass() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditProfile.this);
+        LayoutInflater inflater = LayoutInflater.from(EditProfile.this);
+        View dialogView = inflater.inflate(R.layout.dialog_edit_pass, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final EditText editCurrentPassword = dialogView.findViewById(R.id.editpassact);
+        final EditText editNewPassword = dialogView.findViewById(R.id.editpassnew);
+        Button cancelButton = dialogView.findViewById(R.id.cancelButton);
+        Button saveButton = dialogView.findViewById(R.id.saveButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currentPassword = editCurrentPassword.getText().toString().trim();
+                String newPassword = editNewPassword.getText().toString().trim();
+
+                if (currentPassword.equals(user.getContrasena()) && !newPassword.isEmpty() && !newPassword.trim().isEmpty()) {
+                    passActualTextView.setText(newPassword);
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(EditProfile.this, R.string.incorrectvalue, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showAlertDialogTel() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditProfile.this);
+        LayoutInflater inflater = LayoutInflater.from(EditProfile.this);
+        View dialogView = inflater.inflate(R.layout.dialog_edit_item, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle(R.string.newntel);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final EditText editTel = dialogView.findViewById(R.id.edit);
+        TextView actualTel = dialogView.findViewById(R.id.actual);
+        Button cancelBtn = dialogView.findViewById(R.id.cancelname);
+        Button saveBtn = dialogView.findViewById(R.id.savename);
+
+        actualTel.setText(ntelActualTextView.getText().toString());
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newEmail = editTel.getText().toString().trim();
+                if (!newEmail.isEmpty()) {
+                    gmailActualTextView.setText(newEmail);
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(EditProfile.this, R.string.incorrectvalue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showAlertDialogGmail() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditProfile.this);
+        LayoutInflater inflater = LayoutInflater.from(EditProfile.this);
+        View dialogView = inflater.inflate(R.layout.dialog_edit_item, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle(R.string.newgmail);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final EditText editEmail = dialogView.findViewById(R.id.edit);
+        TextView actualEmail = dialogView.findViewById(R.id.actual);
+        Button cancelBtn = dialogView.findViewById(R.id.cancelname);
+        Button saveBtn = dialogView.findViewById(R.id.savename);
+
+        actualEmail.setText(gmailActualTextView.getText().toString());
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newEmail = editEmail.getText().toString().trim();
+                if (!newEmail.isEmpty()) {
+                    gmailActualTextView.setText(newEmail);
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(EditProfile.this, R.string.incorrectvalue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showAlertDialogName() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(EditProfile.this);
+        LayoutInflater inflater = LayoutInflater.from(EditProfile.this);
+        View dialogView = inflater.inflate(R.layout.dialog_edit_item, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setTitle(R.string.newnombre);
+
+        final AlertDialog dialog = dialogBuilder.create();
+
+        final EditText editName = dialogView.findViewById(R.id.edit);
+        TextView actualname=dialogView.findViewById(R.id.actual);
+        Button cancelBtn = dialogView.findViewById(R.id.cancelname);
+        Button saveBtn = dialogView.findViewById(R.id.savename);
+
+        actualname.setText(nombreActualTextView.getText().toString());
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        // Configurar el clic del botón "Guardar"
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener el texto ingresado en el EditText
+                String newNombre = editName.getText().toString().trim();
+
+                // Verificar que el texto no esté vacío o lleno de espacios en blanco
+                if (!newNombre.isEmpty()) {
+                    // Actualizar el texto de nombreActualTextView
+                    nombreActualTextView.setText(newNombre);
+                    dialog.dismiss();
+                }else{
+                    Toast.makeText(EditProfile.this, R.string.incorrectvalue, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialog.show();
+    }
+
     public class UpdateProfileTask extends AsyncTask<Void, Void, Void> {
         private String nuevoNombre;
         private String nuevoGmail;

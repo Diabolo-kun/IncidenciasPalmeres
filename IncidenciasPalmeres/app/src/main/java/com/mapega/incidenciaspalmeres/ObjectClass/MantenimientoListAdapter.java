@@ -69,17 +69,17 @@ public class MantenimientoListAdapter extends RecyclerView.Adapter<Mantenimiento
             builder.setTitle(item.getTitulo());
 
             // Inflar el layout personalizado
-            View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_almacen, null);
+            View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_mantenimiento, null);
             builder.setView(dialogView);
 
             // Obtener referencias a los TextViews del layout personalizado
             TextView idTextView = dialogView.findViewById(R.id.id);
-            TextView idUserTextView = dialogView.findViewById(R.id.iduseralmacen);
-            TextView fechacreaTextView = dialogView.findViewById(R.id.fechacreacionalmacen);
-            TextView fechafinTextView = dialogView.findViewById(R.id.fechafinalmacen);
+            TextView idUserTextView = dialogView.findViewById(R.id.idusermante);
+            TextView fechacreaTextView = dialogView.findViewById(R.id.fechacreacionmante);
+            TextView fechafinTextView = dialogView.findViewById(R.id.fechafinalmante);
             TextView importanciaTextView = dialogView.findViewById(R.id.importancia);
             TextView descripcionContenidoTextView = dialogView.findViewById(R.id.descripcion_contenido);
-            CheckBox pedido= dialogView.findViewById(R.id.check);
+            CheckBox solucionado= dialogView.findViewById(R.id.check);
 
             // Establecer los valores de los TextViews con la información del aviso
             idTextView.setText("ID: " + item.getId());
@@ -88,12 +88,12 @@ public class MantenimientoListAdapter extends RecyclerView.Adapter<Mantenimiento
             fechafinTextView.setText("Fecha Finalizacion: " + item.getFecha_finalizacion());
             importanciaTextView.setText("Prioridad: " + item.getNivel_prioridad());
             descripcionContenidoTextView.setText(item.getDescripcion());
-            pedido.setChecked(item.isDone());
+            solucionado.setChecked(item.isDone());
             builder.setPositiveButton("Validar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Acción al pulsar el botón Validar
-                    boolean isChecked = pedido.isChecked();
+                    boolean isChecked = solucionado.isChecked();
                     new MantenimientoListAdapter.ResueltoAsyncTask(dialog).execute(item.getId(), isChecked);
                 }
             });

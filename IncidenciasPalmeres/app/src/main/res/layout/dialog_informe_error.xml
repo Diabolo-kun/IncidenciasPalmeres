@@ -8,20 +8,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Informe de error"
+            android:text="@string/infoerror"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="¿que ha pasado?" />
+            android:text="@string/whathappend" />
 
         <EditText
             android:id="@+id/informe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese una descripción detallada de su error" />
+            android:hint="@string/descerror" />
 
 
     </LinearLayout>

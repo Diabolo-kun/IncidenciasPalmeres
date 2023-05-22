@@ -3,6 +3,7 @@ package com.mapega.incidenciaspalmeres.ObjectClass;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
 
         ViewHolder(View itemView){
             super(itemView);
-            important =itemView.findViewById(R.id.important);
+            important =itemView.findViewById(R.id.icon);
             titulo=itemView.findViewById(R.id.titulo);
             fecha=itemView.findViewById(R.id.fecha);
             btn=itemView.findViewById(R.id.btn_ver_detalles);
@@ -66,20 +67,17 @@ public class AvisoListAdapter extends RecyclerView.Adapter<AvisoListAdapter.View
             titulo.setText(item.getTitulo());
             fecha.setText(item.getFechaCreacion().toString());
             if (item.getNivel_prioridad()==1){
-                important.setImageResource(R.drawable.ic_importance_1);
+                important.setColorFilter(Color.RED);
             } else if (item.getNivel_prioridad()==2) {
-                important.setImageResource(R.drawable.ic_importance_2);
+                important.setColorFilter(Color.YELLOW);
             } else if (item.getNivel_prioridad()==3) {
-                important.setImageResource(R.drawable.ic_importance_3);
+                important.setColorFilter(Color.GREEN);
             }else{
                 important.setImageResource(R.drawable.ic_importance_ukn);
             }
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*Intent intent = new Intent(context, Avisoexpose.class);
-                    intent.putExtra("aviso", item);
-                    context.startActivity(intent);*/
                     showAlertDialog(item);
                 }
             });

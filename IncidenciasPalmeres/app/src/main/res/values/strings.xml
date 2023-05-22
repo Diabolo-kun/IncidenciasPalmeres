@@ -1,19 +1,59 @@
 <resources>
-    <string name="app_name">Incidencias Palmeres</string>
-    <string name="email">Correo Electronico</string>
-    <string name="password">Contraseña</string>
+    <string name="app_name" translatable="false">Palmeres</string>
+    <string name="email">Correo Electronico:</string>
+    <string name="password">Contraseña:</string>
     <string name="login">Entrar</string>
     <string name="solicitar">Solicitar</string>
     <string name="remember">Recuerdame</string>
-    <string name="title_activity_menu2">Menu2</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="avisos">Avisos</string>
+    <string name="masincimante">Crear incidencia mantenimiento</string>
+    <string name="masincialma">Crear incidencia almacen</string>
+    <string name="seemante">Ver incidencias mantenimiento</string>
+    <string name="seealma">Ver incidencias almacen</string>
+    <string name="infoerror">Informar de errores</string>
+    <string name="logoff">Cerrar sesión</string>
+
+    <string name="formusolicitud">Formulario de Solicitud</string>
+    <string name="dni">DNI:</string>
+    <string name="desc">Descripción:</string>
+    <string name="descmore">Ingrese una descripción detallada de su solicitud</string>
+    <string name="endsolicitud">Finalizar Solicitud</string>
+
+    <string name="titulo">Título</string>
+    <string name="tituloincidencia">Título de la incidencia</string>
+    <string name="createincidencia">Crear incidencia</string>
+
+    <string name="nombre">Nombre:</string>
+    <string name="newnombre">Nuevo nombre</string>
+    <string name="gmail">Gmail:</string>
+    <string name="newgmail">Nuevo Gmail</string>
+    <string name="ntel">Nº Telefono</string>
+    <string name="newntel">Nuevo Telefono</string>
+    <string name="newpass">Nueva Contraseña</string>
+    <string name="puesto">Puesto:</string>
+    <string name="permisos">Permisos:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+
+    <string name="producto">Producto:</string>
+    <string name="cantidad">Cantidad:</string>
+    <string name="createproduct">Crear producto</string>
+    <string name="details">Ver detalles</string>
+
+    <string name="usuario">Usuario:</string>
+    <string name="fechacreacion">Fecha Creacion:</string>
+    <string name="fechafin">Fecha Finalizacion:</string>
+    <string name="solucionado">Solucionado</string>
+
+    <string name="informeerror">Informe de error</string>
+    <string name="whathappend">¿que ha pasado?</string>
+    <string name="descerror">Ingrese una descripción detallada de su error</string>
+
+    <string name="date">Fecha:</string>
+    <string name="importancia">Importancia:</string>
+    <string name="pedido">Pedido</string>
+
+    <string name="incorrectvalue">Valor incorrecto</string>
 </resources>

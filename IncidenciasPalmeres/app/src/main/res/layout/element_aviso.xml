@@ -10,80 +10,69 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        style="@style/Theme.IncidenciasPalmeres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="6dp">
+
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                app:srcCompat="@drawable/ic_aviso"
-                android:layout_alignParentLeft="true"/>
+                app:srcCompat="@drawable/ic_aviso" />
+
             <LinearLayout
                 android:id="@+id/linear"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="2dp"
                 android:layout_toEndOf="@id/icon"
-                android:orientation="vertical"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@id/icon">
+                android:layout_toRightOf="@id/icon"
+                android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/titulo"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="Aviso"
-                    android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10-10-2300"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btn_ver_detalles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ver detalles"/>
+                    android:text="@string/details" />
+
 
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/linearextra"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical"
-                android:padding="8dp">
 
-                <TextView
-                    android:id="@+id/fecha"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="10-10-2300"
-                    android:textColor="@color/teal_700"
-                    android:textSize="15sp"
-                    android:textStyle="bold"/>
-                <ImageView
-                    android:id="@+id/important"
-                    android:layout_width="70dp"
-                    android:layout_height="45dp"
-                    android:paddingLeft="14dp"
-                    android:paddingRight="14dp"
-                    app:srcCompat="@drawable/ic_no_important"
-                    android:layout_alignParentLeft="true"/>
-
-            </LinearLayout>
         </RelativeLayout>
 
     </LinearLayout>

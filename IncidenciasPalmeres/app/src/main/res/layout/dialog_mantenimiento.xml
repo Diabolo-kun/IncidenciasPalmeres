@@ -20,10 +20,10 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/iduseralmacen"
+            android:id="@+id/idusermante"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Usuario: "
+            android:text="@string/usuario"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -31,22 +31,22 @@
             android:id="@+id/importancia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Importancia: "
+            android:text="@string/importancia"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
     <TextView
-        android:id="@+id/fechacreacionalmacen"
+        android:id="@+id/fechacreacionmante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fecha Creacion: "
+        android:text="@string/fechacreacion"
         android:textColor="@color/black"
         android:textSize="14sp" />
     <TextView
-        android:id="@+id/fechafinalmacen"
+        android:id="@+id/fechafinalmante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fecha Finalizacion: "
+        android:text="@string/fechafin"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Descripción:"
+        android:text="@string/desc"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -70,7 +70,7 @@
         android:id="@+id/check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Solucionado"/>
+        android:text="@string/solucionado"/>
 
 </LinearLayout>
 

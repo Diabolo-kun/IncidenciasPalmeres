@@ -42,18 +42,20 @@
                 android:layout_toRightOf="@id/icon">
                 <TextView
                     android:id="@+id/titulomantenimiento"
-                    android:layout_width="200dp"
+                    android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="Mantenimiento"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
                 <Button
                     android:id="@+id/btn_ver_detalles"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ver detalles"/>
+                    android:text="@string/details"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearextra"

@@ -3,26 +3,26 @@
 
     <item
         android:id="@+id/editar_perfil"
-        android:title="Editar perfil" />
+        android:title="@string/editar_perfil" />
     <item
     android:id="@+id/inicio"
-    android:title="Avsos" />
+    android:title="@string/avisos" />
     <item
         android:id="@+id/crear_incidencia_mantenimiento"
-        android:title="Crear incidencia mantenimiento" />
+        android:title="@string/masincimante" />
     <item
         android:id="@+id/crear_incidencia_almacen"
-        android:title="Crear incidencia almacen" />
+        android:title="@string/masincialma" />
     <item
         android:id="@+id/ver_incidencias_mantenimiento"
-        android:title="Ver incidencias mantenimiento" />
+        android:title="@string/seemante" />
     <item
         android:id="@+id/ver_incidencias_almacen"
-        android:title="Ver incidencias almacen" />
+        android:title="@string/seealma" />
     <item
         android:id="@+id/infoerror"
-        android:title="Informar de errores" />
+        android:title="@string/infoerror" />
     <item
         android:id="@+id/cerrar_sesion"
-        android:title="Cerrar sesión" />
+        android:title="@string/logoff" />
 </menu>

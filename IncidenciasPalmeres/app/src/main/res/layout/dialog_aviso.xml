@@ -23,7 +23,7 @@
             android:id="@+id/fecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fecha: "
+            android:text="@string/date"
             android:textColor="@color/black"
             android:textSize="14sp" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/importancia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Importancia: "
+            android:text="@string/importancia"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Descripción:"
+        android:text="@string/desc"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
