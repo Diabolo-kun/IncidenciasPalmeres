@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Incidencias Palmeres</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Log in</string>
     <string name="solicitar">Request</string>
     <string name="remember">Rememberme</string>
+
+    <string name="editar_perfil">Edit Profile</string>
+    <string name="avisos">Notices</string>
+    <string name="masincimante">Create maintenance incident</string>
+    <string name="masincialma">Create warehouse incident</string>
+    <string name="seemante">See maintenance incidents</string>
+    <string name="seealma">See warehouse incidents</string>
+    <string name="infoerror">report bugs</string>
+    <string name="logoff">Sign off</string>
+
+    <string name="formusolicitud">Application form</string>
+    <string name="dni">DNI:</string>
+    <string name="desc">Description:</string>
+    <string name="descmore">Enter a detailed description of your request</string>
+    <string name="endsolicitud">Finish Request</string>
+
+    <string name="titulo">Title</string>
+    <string name="tituloincidencia">Incident Title</string>
+    <string name="createincidencia">Create incident</string>
+
+    <string name="nombre">Name:</string>
+    <string name="newnombre">New name</string>
+    <string name="gmail">Gmail:</string>
+    <string name="newgmail">New Gmail</string>
+    <string name="ntel">phone number</string>
+    <string name="newntel">new phone number</string>
+    <string name="newpass">New Password</string>
+    <string name="puesto">Position:</string>
+    <string name="permisos">permissions:</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <string name="producto">Product:</string>
+    <string name="cantidad">Amount:</string>
+    <string name="createproduct">create product</string>
+    <string name="details">See details</string>
+
+    <string name="usuario">User:</string>
+    <string name="fechacreacion">Creation date:</string>
+    <string name="fechafin">Completion Date:</string>
+    <string name="solucionado">Fixed</string>
+
+    <string name="informeerror">bug report</string>
+    <string name="whathappend">what happened?</string>
+    <string name="descerror">Enter a detailed description of your bug</string>
+
+    <string name="date">Date:</string>
+    <string name="importancia">Importance:</string>
+    <string name="pedido">Order</string>
+    <string name="incorrectvalue">Incorrect value</string>
 </resources>

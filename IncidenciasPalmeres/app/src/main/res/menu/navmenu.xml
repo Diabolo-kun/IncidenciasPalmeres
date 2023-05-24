@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/editar_perfil"
+        android:title="@string/editar_perfil" />
+    <item
+    android:id="@+id/inicio"
+    android:title="@string/avisos" />
+    <item
+        android:id="@+id/crear_incidencia_mantenimiento"
+        android:title="@string/masincimante" />
+    <item
+        android:id="@+id/crear_incidencia_almacen"
+        android:title="@string/masincialma" />
+    <item
+        android:id="@+id/ver_incidencias_mantenimiento"
+        android:title="@string/seemante" />
+    <item
+        android:id="@+id/ver_incidencias_almacen"
+        android:title="@string/seealma" />
+    <item
+        android:id="@+id/infoerror"
+        android:title="@string/infoerror" />
+    <item
+        android:id="@+id/cerrar_sesion"
+        android:title="@string/logoff" />
+</menu>

@@ -1,4 +1,4 @@
-package com.mapega.incidenciaspalmeres;
+package com.mapega.incidenciaspalmeres.Request;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mapega.incidenciaspalmeres.Conexion;
+import com.mapega.incidenciaspalmeres.R;
+
 public class Request extends AppCompatActivity {
     private EditText mEmail, mDNI, mDescripcion;
     private Button mEnviar;
@@ -16,9 +19,9 @@ public class Request extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.formulariosolicitud);
+        setContentView(R.layout.formulario_solicitud);
 
-        mEmail = findViewById(R.id.gmail);
+        mEmail = findViewById(R.id.mail);
         mDNI = findViewById(R.id.dni);
         mDescripcion = findViewById(R.id.des);
         mEnviar = findViewById(R.id.env);

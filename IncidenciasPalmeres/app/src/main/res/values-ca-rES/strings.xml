@@ -1,0 +1,57 @@
+<resources>
+    <string name="email">Correu Electronic:</string>
+    <string name="password">Contrasenya:</string>
+    <string name="login">Entrar</string>
+    <string name="solicitar">Sol·licitar</string>
+    <string name="remember">Recuerdame</string>
+
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="avisos">Avisos</string>
+    <string name="masincimante">Crear incidència manteniment</string>
+    <string name="masincialma">Crear incidència magatzem</string>
+    <string name="seemante">Veure incidències manteniment</string>
+    <string name="seealma">Veure incidències magatzem</string>
+    <string name="infoerror">Informar d\'errors</string>
+    <string name="logoff">Tancar sessió</string>
+
+    <string name="formusolicitud">Formulari de Sol·licitud</string>
+    <string name="dni">DNI:</string>
+    <string name="desc">Descripció:</string>
+    <string name="descmore">Ingresse una descripció detallada de la seua sol·licitud</string>
+    <string name="endsolicitud">Finalitzar Sol·licitud</string>
+
+    <string name="titulo">Títol</string>
+    <string name="tituloincidencia">Títol de la incidència</string>
+    <string name="createincidencia">Crear incidència</string>
+
+    <string name="nombre">Nom:</string>
+    <string name="newnombre">Nou nom</string>
+    <string name="gmail">Gmail:</string>
+    <string name="newgmail">Nou Gmail</string>
+    <string name="ntel">Nº Telefon</string>
+    <string name="newntel">Nou Telefon</string>
+    <string name="newpass">Nova Contrasenya</string>
+    <string name="puesto">Posat:</string>
+    <string name="permisos">Permisos:</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="save">Guardar</string>
+
+    <string name="producto">Producte:</string>
+    <string name="cantidad">Quantitat:</string>
+    <string name="createproduct">Crear producte</string>
+    <string name="details">Veure detalls</string>
+
+    <string name="usuario">Usuari:</string>
+    <string name="fechacreacion">Data Creació:</string>
+    <string name="fechafin">Data Finalizació:</string>
+    <string name="solucionado">Solucionat</string>
+
+    <string name="informeerror">Informe d\'error</string>
+    <string name="whathappend">que ha passat?</string>
+    <string name="descerror">Ingresse una descripció detallada del seu error</string>
+
+    <string name="date">Data:</string>
+    <string name="importancia">Importància:</string>
+    <string name="pedido">Demanada</string>
+    <string name="incorrectvalue">Valor incorrecte</string>
+</resources>

@@ -16,40 +16,40 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Formulario de Solicitud"
+            android:text="@string/formusolicitud"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/gmail"
+            android:id="@+id/mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Gmail"
+            android:hint="@string/email"
             android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/dni"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="DNI"
+            android:hint="@string/dni"
             android:minHeight="48dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Descripción" />
+            android:text="@string/desc" />
 
         <EditText
             android:id="@+id/des"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ingrese una descripción detallada de su solicitud" />
+            android:hint="@string/descmore" />
 
         <Button
             android:id="@+id/env"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finalizar Solicitud" />
+            android:text="@string/endsolicitud" />
 
     </LinearLayout>
 

@@ -7,4 +7,17 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Colores para modo claro -->
+    <color name="colorPrimaryLight">#25c4dd</color>
+    <color name="colorPrimaryDarkLight">#19445f</color>
+    <color name="colorAccentLight">#26ade4</color>
+    <color name="colorBackgroundLight">#c3b1d6</color>
+    <color name="colorTextLight">#795356</color>
+    <!-- Colores para modo oscuro -->
+    <color name="colorPrimaryNight">#fa8d3b</color>
+    <color name="colorPrimaryDarkNight">#b5485f</color>
+    <color name="colorAccentNight">#d65981</color>
+    <color name="colorBackgroundNight">#5a3546</color>
+    <color name="colorTextNight">#ff6a5a</color>
+
 </resources>
